@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 
@@ -19,8 +20,12 @@ class EmployeeController extends Controller
     {
 
         $all_employees = User::all();
-
-        return view('employee.view', compact('all_employees'));
+        $user = Auth::user();
+        $user_role = $user->is_admin;
+        if ($user_role) {
+            return view('employee.view', compact('all_employees'));
+        }
+        return view('employee.user_view', compact('all_employees'));
     }
 
 

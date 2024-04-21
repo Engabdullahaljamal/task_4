@@ -26,6 +26,6 @@ class IsAdmin
             return $next($request);
         }
 
-        return redirect('home');
+        return redirect('home')->with('status', 'you are not an admin to create a new employee');
     }
 }
